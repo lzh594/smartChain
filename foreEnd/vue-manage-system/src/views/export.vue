@@ -86,7 +86,7 @@ const exportXlsx = () => {
 .red {
     color: #f56c6c;
 }
-.mr10 {
+.mr20 {
     margin-right: 10px;
 }
 .table-td-thumb {

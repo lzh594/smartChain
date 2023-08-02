@@ -2,58 +2,120 @@
     <div>
         <div class="container">
             <div class="handle-box">
-                <el-select v-model="searchQuery.App" placeholder="应用" class="handle-select mr10">
-                    <el-option-group label="腾讯">
-                        <el-option key="1" label="微信" value="weixin" align="center"></el-option>
+                <div style="margin-bottom: 20px">
+                    <el-button type="success"
+                               :icon="Search"
+                               size="large"
+                               @click="phoneSearch">一键查询
+                    </el-button>
+                </div>
+                <el-input v-model="searchQuery.Phone"
+                          type="text"
+                          placeholder="账号"
+                          :prefix-icon="Search"
+                          clearable
+                          @clear="searchQuery.Phone=''"
+                          class="handle-input mr20">
+                </el-input>
+                <el-input v-model="searchQuery.HashID"
+                          style="width: 350px"
+                          :prefix-icon="Search"
+                          class="mr20"
+                          clearable
+                          @clear="searchQuery.HashID=''"
+                          placeholder="哈希索引">
+                </el-input>
+                <el-select v-model="searchQuery.Superior"
+                           placeholder="运营商"
+                           clearable
+                           @clear="searchQuery.Superior=''"
+                           class="mr20"
+                           style="width: 88px">
+                    <el-option key="1" label="Alibaba" value="Alibaba" align="center"></el-option>
+                    <el-option key="2" label="Mihoyo" value="Mihoyo" align="center"></el-option>
+                    <el-option key="3" label="ByteDance" value="ByteDance" align="center"></el-option>
+                    <el-option key="4" label="Tencent" value="Tencent" align="center"></el-option>
+                    <el-option key="5" label="NetEase" value="NetEase" align="center"></el-option>
+                    <el-option key="6" label="buaa" value="buaa" align="center"></el-option>
+                </el-select>
+                <el-select v-model="searchQuery.App"
+                           placeholder="应用"
+                           clearable
+                           @clear="searchQuery.App=''"
+                           class="mr20"
+                           style="width: 88px">
+                    <el-option-group label="Tencent">
+                        <el-option key="1" label="weixin" value="weixin" align="center"></el-option>
                         <el-option key="2" label="QQ" value="QQ" align="center"></el-option>
                     </el-option-group>
-                    <el-option-group label="阿里巴巴">
-                        <el-option key="3" label="淘宝" value="taobao" align="center"></el-option>
-                        <el-option key="4" label="支付宝" value="Alipay" align="center"></el-option>
+                    <el-option-group label="Alibaba">
+                        <el-option key="3" label="taobao" value="taobao" align="center"></el-option>
+                        <el-option key="4" label="Alipay" value="Alipay" align="center"></el-option>
                     </el-option-group>
-                    <el-option-group label="网易">
-                        <el-option key="5" label="网易云音乐" value="Musics" align="center"></el-option>
+                    <el-option-group label="NetEase">
+                        <el-option key="5" label="Musics" value="Musics" align="center"></el-option>
                     </el-option-group>
-                    <el-option-group label="米哈游">
-                        <el-option key="6" label="原神" value="Genshin" align="center"></el-option>
+                    <el-option-group label="Mihoyo">
+                        <el-option key="6" label="Genshin" value="Genshin" align="center"></el-option>
                     </el-option-group>
-                    <el-option-group label="字节跳动">
-                        <el-option key="7" label="抖音" value="Tiktok" align="center"></el-option>
+                    <el-option-group label="ByteDance">
+                        <el-option key="7" label="Tiktok" value="Tiktok" align="center"></el-option>
                     </el-option-group>
                 </el-select>
-                <el-input v-model="searchQuery.Phone" placeholder="账号" class="handle-input mr10"></el-input>
-                <el-select v-model="searchQuery.Op" placeholder="操作" class="handle-select mr10">
-                    <el-option key="1" label="变更" value="change" align="center"></el-option>
-                    <el-option key="2" label="注册" value="signup" align="center"></el-option>
+                <el-select v-model="searchQuery.Op"
+                           placeholder="操作"
+                           clearable
+                           @clear="searchQuery.Op=''"
+                           class="handle-select mr20">
+                    <el-option key="1" label="注册" value="signup" align="center"></el-option>
+                    <el-option key="2" label="变更" value="change" align="center"></el-option>
                     <el-option key="3" label="注销" value="cancel" align="center"></el-option>
                 </el-select>
-                <el-select v-model="searchQuery.State" placeholder="状态" class="handle-select mr10">
+                <el-select v-model="searchQuery.State"
+                           placeholder="状态"
+                           clearable
+                           @clear="searchQuery.State=''"
+                           class="handle-select mr20">
                     <el-option key="1" label="成功" value="success" align="center"></el-option>
                     <el-option key="2" label="失败" value="error" align="center"></el-option>
                     <el-option key="3" label="待处理" value="pending" align="center"></el-option>
                 </el-select>
-                <el-button type="primary" :icon="Search" @click="handleSearch">搜索</el-button>
-                <el-button type="text" :icon="Delete" @click="handleClear">清除</el-button>
+                <el-button type="primary" :icon="Search" @click="optionSearch">筛选</el-button>
+                <el-button type="danger" :icon="Delete" @click="phoneSearch">清除</el-button>
             </div>
 
             <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
                 <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-                <el-table-column prop="HashID" label="哈希" align="center"></el-table-column>
+                <el-table-column prop="HashID" label="哈希索引"  width="220" align="center"></el-table-column>
                 <el-table-column prop="Phone" label="账号" align="center"></el-table-column>
                 <el-table-column prop="Superior" label="运营商" align="center"></el-table-column>
                 <el-table-column prop="App" label="应用" align="center"></el-table-column>
                 <el-table-column prop="Op" label="操作" align="center"></el-table-column>
-                <el-table-column prop="state" label="状态" align="center">
+                <el-table-column label="状态" align="center">
                     <template #default="scope">
                         <el-tag
-                            :type="scope.row.state === 'success' ? 'success' : scope.row.state === 'error' ? 'danger' : ''"
+                            v-if="scope.row.State === 'success'"
+                            :type="'success'"
+                            round
                         >
-                            {{ scope.row.state }}
+                            {{ "success" }}
+                        </el-tag>
+                        <el-tag
+                            v-else-if="scope.row.State === 'pending'"
+                            round
+                        >
+                            {{ "pending" }}
+                        </el-tag>
+                        <el-tag
+                            v-else
+                            :type="'danger'"
+                            round
+                        >
+                            {{ "error" }}
                         </el-tag>
                     </template>
                 </el-table-column>
-
-                <el-table-column prop="TimeStamp" label="时间" width=190 align="center"></el-table-column>
+                <el-table-column prop="TimeStamp" label="时间戳" width=250 align="center"></el-table-column>
                 <el-table-column label="操作" width="220" align="center">
                     <template #default="scope">
                         <el-button text :icon="Edit" @click="handleEdit(scope.$index, scope.row)" v-permiss="15">
@@ -69,8 +131,8 @@
                 <el-pagination
                     background
                     layout="total, prev, pager, next"
-                    :current-page="query.pageIndex"
-                    :page-size="query.pageSize"
+                    :current-page="pageQuery.pageIndex"
+                    :page-size="pageQuery.pageSize"
                     :total="pageTotal"
                     @current-change="handlePageChange"
                 ></el-pagination>
@@ -102,6 +164,7 @@ import {reactive, ref} from 'vue';
 import {ElMessage, ElMessageBox} from 'element-plus';
 import {Delete, Edit, Search} from '@element-plus/icons-vue';
 import Data from "./DB.json";
+import {requestData} from "../api";
 
 
 interface TableItem {
@@ -111,57 +174,76 @@ interface TableItem {
     Superior: string
     App: string;
     Op: string;
-    state: string;
+    State: string;
     TimeStamp: string;
 }
 
-const query = reactive({
-    Phone: '',
-    App: '',
-    Op: '',
+const pageQuery = reactive({
     pageIndex: 1,
     pageSize: 10
 });
-const tableData = ref<TableItem[]>(Data.list);
-const pageTotal = ref(Data.pageTotal || 50);
-
-// 获取表格数据
-const getData = () => {
-    tableData.value = Data.list;
-    pageTotal.value = Data.pageTotal || 50;
-};
+const tableData = ref<TableItem[]>([]);
+const tableDataCache = ref<TableItem[]>([]);
+const pageTotal = ref(0);
+const pageTotalCache = ref(0);
 
 const searchQuery = reactive({
-    App: '',
+    HashID: '',
+    Superior: '',
     Phone: '',
+    App: '',
     Op: '',
     State: ''
 });
 
-// 查询操作
-const handleSearch = () => {
-    query.pageIndex = 1;
-    getData();
-    tableData.value = Data.list.filter(item => {
-        const appMatch = item.App.includes(searchQuery.App);
-        const phoneMatch = item.Phone.includes(searchQuery.Phone);
-        const opMatch = item.Op.includes(searchQuery.Op);
-        const stateMatch = item.state.includes(searchQuery.State);
-        return appMatch && phoneMatch && opMatch && stateMatch;
+const request = reactive({
+    url: '/get_all',
+    method: 'get',
+    query: {}
+})// 获取后台数据
+const getData = () => {
+    request.query = {"Phone": searchQuery.Phone}
+    requestData(request)!.then(res => {
+        tableDataCache.value = res.data.list;
+        pageTotalCache.value = res.data.pageTotal;
     });
 };
-
-// 清除搜索栏中的输入
-const handleClear = () => {
+getData()
+// 搜索过程：清除筛选项目+获取后台数据
+const phoneSearch = () => {
+    searchQuery.Superior = '';
     searchQuery.App = '';
-    searchQuery.Phone = '';
     searchQuery.Op = '';
-    searchQuery.State = '';
-    getData();
+    getData()
+    tableData.value = tableDataCache.value
+    pageTotal.value = pageTotalCache.value
+}
+// 清除搜索栏中的输入
+const phoneClear = () => {
+    searchQuery.Phone = '';
+    searchQuery.Superior = '';
+    searchQuery.App = '';
+    searchQuery.Op = '';
+    tableDataCache.value = []
+    tableData.value = []
+    pageTotal.value = 0
+    pageTotalCache.value = 0
+}
+// 筛选操作
+const optionSearch = () => {
+    pageQuery.pageIndex = 1;
+    tableData.value = tableDataCache.value.filter(item => {
+        const superiorMatch = item.Superior.includes(searchQuery.Superior);
+        const appMatch = item.App.includes(searchQuery.App);
+        const opMatch = item.Op.includes(searchQuery.Op);
+        return superiorMatch && appMatch && opMatch;
+    });
+    pageTotal.value = tableData.value.length
 };
+
 // 分页导航
 const handlePageChange = (val: number) => {
-    query.pageIndex = val;
+    pageQuery.pageIndex = val;
     getData();
 };
 
@@ -199,7 +281,7 @@ const saveEdit = () => {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
     form.timestamp = `${days[now.getDay()]}-${months[now.getMonth()]}-${now.getDate()}-${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}-${now.getFullYear()}`;
     ElMessage.success(`操作成功`);
-    tableData.value[idx].state = form.state;
+    tableData.value[idx].State = form.state;
     tableData.value[idx].TimeStamp = form.timestamp;
 };
 </script>
@@ -214,7 +296,7 @@ const saveEdit = () => {
 }
 
 .handle-input {
-    width: 300px;
+    width: 200px;
 }
 
 .table {
@@ -226,8 +308,8 @@ const saveEdit = () => {
     color: #F56C6C;
 }
 
-.mr10 {
-    margin-right: 10px;
+.mr20 {
+    margin-right: 20px;
 }
 
 .table-td-thumb {
