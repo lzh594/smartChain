@@ -11,12 +11,13 @@
             router
         >
             <template v-for="(item, index) in items">
-                <template v-if="identity === '1' && (item.index === '/dashboard' || item.index === '/table' || item.index === '/form' || item.index === '/history') || identity === '0' && (item.index === '/dashboard' || item.index === '/apporg')">
+                <template
+                    v-if="identity === '1' && (item.index === '/dashboard' || item.index === '/table' || item.index === '/form' || item.index === '/history') || identity === '0' && (item.index === '/dashboard' || item.index === '/apporg')">
                     <el-menu-item :index="item.index" :key="item.index" v-permiss="item.permiss">
                         <el-icon>
                             <component :is="item.icon"></component>
                         </el-icon>
-                        <template #title>{{ item.title }}</template>
+                        <template #title class="side-font">{{ item.title }}</template>
                     </el-menu-item>
                 </template>
             </template>
@@ -25,9 +26,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useSidebarStore } from '../store/sidebar';
-import { useRoute } from 'vue-router';
+import {computed} from 'vue';
+import {useSidebarStore} from '../store/sidebar';
+import {useRoute} from 'vue-router';
 
 const items = [
     {
@@ -73,6 +74,10 @@ const identity = localStorage.getItem('ms_identity')
 </script>
 
 <style scoped>
+.side-font{
+    display: block;
+    font-size: 100px;
+}
 .sidebar {
     display: block;
     position: absolute;
@@ -81,12 +86,15 @@ const identity = localStorage.getItem('ms_identity')
     bottom: 0;
     overflow-y: scroll;
 }
+
 .sidebar::-webkit-scrollbar {
     width: 0;
 }
+
 .sidebar-el-menu:not(.el-menu--collapse) {
     width: 250px;
 }
+
 .sidebar > ul {
     height: 100%;
 }

@@ -1,7 +1,7 @@
 import axios, {AxiosInstance} from 'axios';
 
 const service: AxiosInstance = axios.create({
-    // baseURL: "http://localhost:8000/handle",
+    baseURL: "http://localhost:8000/handle",
     timeout: 5000
 });
 

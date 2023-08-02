@@ -12,8 +12,8 @@ export const fetchData = () => {
 };
 
 interface RequestDataParams {
-    url: any;
-    method: any;
+    url: string;
+    method: string;
     query: any;
 }
 

@@ -48,7 +48,7 @@
 <script setup lang="ts" name="basetable">
 import { ref, reactive } from 'vue';
 import { Delete, Search } from '@element-plus/icons-vue';
-import { fetchData } from '../api';
+import {fetchData, requestData} from '../api';
 import Data from "../../public/table.json";
 
 interface TableItem {
@@ -70,9 +70,11 @@ const query = reactive({
 });
 const tableData = ref<TableItem[]>([]);
 const pageTotal = ref(0);
+
+const request = {url:'/get_all',method:'get', query:{}}
 // 获取表格数据
 const getData = () => {
-    fetchData().then(res => {
+    requestData(request)!.then(res => {
         tableData.value = res.data.list;
         pageTotal.value = res.data.pageTotal || 50;
     });

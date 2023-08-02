@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="374ce9f2-1409-4207-a149-5fd2c335e694" name="更改" comment="first merge vue" />
+    <list default="true" id="374ce9f2-1409-4207-a149-5fd2c335e694" name="更改" comment="first merge vue">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/table.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/table.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/request.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/history.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/history.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/table.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/table.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +25,20 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "lzh594"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="8dff99f7-dcd8-43a7-bb31-2445ed61bbd8" />
+        <option name="url" value="git@github.com:lzh594/smartChain.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -86,7 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1690945338427</updated>
       <workItem from="1690945339528" duration="4730000" />
-      <workItem from="1690956935744" duration="7156000" />
+      <workItem from="1690956935744" duration="11448000" />
     </task>
     <task id="LOCAL-00001" summary="first merge vue">
       <option name="closed" value="true" />
@@ -104,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690964987479</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="first merge vue">
+      <option name="closed" value="true" />
+      <created>1690965055279</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1690965055279</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -73,6 +73,8 @@ import {ref, reactive} from 'vue';
 import {Delete, Edit, Search, Plus} from '@element-plus/icons-vue';
 import historyData from './history.json';
 import Data from "./DB.json";
+import {requestData} from "../api";
+
 interface TableItem {
     id: number
     HashID: string;
@@ -91,15 +93,18 @@ const query = reactive({
     pageIndex: 1,
     pageSize: 10
 });
-const tableData = ref<TableItem[]>(historyData.list);
-const pageTotal = ref(historyData.pageTotal || 50);
+const tableData = ref<TableItem[]>([]);
+const pageTotal = ref(0);
+const request = {url: '/get_history', method: 'get', query: {"Phone": "10987654321"}}
 
 // 获取表格数据
 const getData = () => {
-    tableData.value = historyData.list;
-    pageTotal.value = historyData.pageTotal || 50;
+    requestData(request)!.then(res => {
+        tableData.value = res.data.list;
+        pageTotal.value = res.data.pageTotal || 50;
+    });
 };
-
+getData()
 const searchQuery = reactive({
     App: '',
     Phone: '',
