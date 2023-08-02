@@ -1,6 +1,7 @@
 import time
 
 from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
 
 from .models import UsrData, History
 from .ssh import *
@@ -74,7 +75,8 @@ def create(request):
         s = "Error"
     # 更新数据库
     update()
-    return JsonResponse({"result": {"str": s, "value": value}}, json_dumps_params={'ensure_ascii': False})
+    return get_all(request)
+    # return JsonResponse({"result": {"str": s, "value": value}}, json_dumps_params={'ensure_ascii': False})
 
 
 # 查询特定手机号数据
@@ -91,17 +93,25 @@ def query(request):
     return JsonResponse({"result": {"Phone": data["Phone"], "query_data": query_data}})
 
 
+@require_http_methods(['GET', 'POST'])
 # 查询某(Phone)历史记录
 def get_history(request):
     data = request.GET if request.method == "GET" else request.POST
     # 查询出相关历史记录
     aim = History.objects.raw("SELECT * FROM handle_history WHERE Phone=%s", [data['Phone']])
 
-    history_data, cnt = {}, 1
+    # history_data, cnt = {}, 1
+    # for i in aim:
+    #     history_data[cnt] = {"Superior": i.Superior, "App": i.App, "Op": i.Op, "Request Time": i.TimeStamp}
+    #     cnt += 1
+    # return JsonResponse({"result": {"Phone": data["Phone"], "history_data": history_data}})
+    history_data = {"list": [], "pageTotal": 0}
+    cnt = 0
     for i in aim:
-        history_data[cnt] = {"Superior": i.Superior, "App": i.App, "Op": i.Op, "Request Time": i.TimeStamp}
+        history_data["list"].append({"Superior": i.Superior, "App": i.App, "Op": i.Op, "Request Time": i.TimeStamp})
         cnt += 1
-    return JsonResponse({"result": {"Phone": data["Phone"], "history_data": history_data}})
+    history_data["pageTotal"] = cnt
+    return JsonResponse(history_data)
 
 
 # 删除历史记录
@@ -109,7 +119,7 @@ def clear_history(request):
     data = request.GET if request.method == "GET" else request.POST
     if data["clear"] == "True":
         History.objects.all().delete()
-    return JsonResponse({"result": True})
+    # return JsonResponse({"result": True})
 
 
 """
@@ -118,13 +128,23 @@ def clear_history(request):
 
 
 # 查询数据库(Usrdata)所有数据
+@require_http_methods(['GET', 'POST'])
 def get_all(request):
     # 先对数据库进行更新
     update()
     all_data = UsrData.objects.all()
-    usrdata, cnt = {}, 1
+    # usrdata, cnt = {}, 1
+    # for e in all_data:
+    #     usrdata[cnt] = {"HashID": e.HashID, "Phone": e.Phone, "Superior": e.Superior, "App": e.App, "Op": e.Op,
+    #                     "State": e.State, "TimeStamp": e.TimeStamp}
+    #     cnt += 1
+    # return JsonResponse({"result": usrdata})
+    usrdata = {"list": [], "pageTotal": 0}
+    cnt = 0
     for e in all_data:
-        usrdata[cnt] = {"HashID": e.HashID, "Phone": e.Phone, "Superior": e.Superior, "App": e.App, "Op": e.Op,
-                        "State": e.State, "TimeStamp": e.TimeStamp}
+        usrdata["list"].append(
+            {"id": cnt + 1, "HashID": e.HashID, "Phone": e.Phone, "Superior": e.Superior, "App": e.App, "Op": e.Op,
+             "State": e.State, "TimeStamp": e.TimeStamp})
         cnt += 1
-    return JsonResponse({"result": usrdata})
+    usrdata["pageTotal"] = cnt
+    return JsonResponse(usrdata)
