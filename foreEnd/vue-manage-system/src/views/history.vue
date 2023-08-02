@@ -22,14 +22,37 @@
                     </el-option-group>
                 </el-select>
                 <el-input v-model="searchQuery.Phone" placeholder="账号" class="handle-input mr10"></el-input>
+                <el-select v-model="searchQuery.Op" placeholder="操作" class="handle-select mr10">
+                    <el-option key="1" label="变更" value="change" align="center"></el-option>
+                    <el-option key="2" label="注册" value="signup" align="center"></el-option>
+                    <el-option key="3" label="注销" value="cancel" align="center"></el-option>
+                </el-select>
+                <el-select v-model="searchQuery.State" placeholder="状态" class="handle-select mr10">
+                    <el-option key="1" label="成功" value="success" align="center"></el-option>
+                    <el-option key="2" label="失败" value="error" align="center"></el-option>
+                    <el-option key="3" label="待处理" value="pending" align="center"></el-option>
+                </el-select>
                 <el-button type="primary" :icon="Search" @click="handleSearch">搜索</el-button>
                 <el-button type="text" :icon="Delete" @click="handleClear">清除</el-button>
             </div>
+
             <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
                 <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
                 <el-table-column prop="Phone" label="账号" align="center"></el-table-column>
                 <el-table-column prop="Superior" label="运营商" align="center"></el-table-column>
-                <el-table-column prop="App" label="应用" align="center"></el-table-column>zz
+                <el-table-column prop="App" label="应用" align="center"></el-table-column>
+                <el-table-column prop="Op" label="操作" align="center"></el-table-column>
+                <el-table-column label="状态" align="center">
+                    <template #default="scope">
+                        <el-tag
+                            :type="scope.row.state === 'success' ? 'success' : scope.row.state === 'error' ? 'danger' : ''"
+                        >
+                            {{ scope.row.state }}
+                        </el-tag>
+                    </template>
+                </el-table-column>
+
+                <el-table-column prop="TimeStamp" label="时间" align="center"></el-table-column>
             </el-table>
             <div class="pagination">
                 <el-pagination
@@ -45,68 +68,72 @@
     </div>
 </template>
 
-<script setup lang="ts" name="basetable">
-import { ref, reactive } from 'vue';
-import { Delete, Search } from '@element-plus/icons-vue';
-import { fetchData } from '../api';
-import Data from "../../public/table.json";
-
+<script setup lang="ts" name="history">
+import {ref, reactive} from 'vue';
+import {Delete, Edit, Search, Plus} from '@element-plus/icons-vue';
+import historyData from './history.json';
+import Data from "./DB.json";
 interface TableItem {
     id: number
     HashID: string;
-    Phone : string
+    Phone: string
     Superior: string
     App: string;
     Op: string;
-    State: string;
+    state: string;
     TimeStamp: string;
 }
 
 const query = reactive({
     Phone: '',
     App: '',
+    Op: '',
     pageIndex: 1,
     pageSize: 10
 });
-const tableData = ref<TableItem[]>([]);
-const pageTotal = ref(0);
+const tableData = ref<TableItem[]>(historyData.list);
+const pageTotal = ref(historyData.pageTotal || 50);
+
 // 获取表格数据
 const getData = () => {
-    fetchData().then(res => {
-        tableData.value = res.data.list;
-        pageTotal.value = res.data.pageTotal || 50;
-    });
+    tableData.value = historyData.list;
+    pageTotal.value = historyData.pageTotal || 50;
 };
-getData();
 
 const searchQuery = reactive({
     App: '',
-    Phone: ''
+    Phone: '',
+    Op: '',
+    State: ''
 });
 
 // 查询操作
 const handleSearch = () => {
     query.pageIndex = 1;
+    getData();
     tableData.value = Data.list.filter(item => {
         const appMatch = item.App.includes(searchQuery.App);
         const phoneMatch = item.Phone.includes(searchQuery.Phone);
-        return appMatch && phoneMatch;
+        const opMatch = item.Op.includes(searchQuery.Op);
+        const stateMatch = item.state.includes(searchQuery.State);
+        return appMatch && phoneMatch && opMatch && stateMatch;
     });
-    pageTotal.value = tableData.value.length;
 };
 
 // 清除搜索栏中的输入
 const handleClear = () => {
     searchQuery.App = '';
     searchQuery.Phone = '';
+    searchQuery.Op = '';
+    searchQuery.State = '';
     getData();
 };
+
 // 分页导航
 const handlePageChange = (val: number) => {
     query.pageIndex = val;
     getData();
 };
-
 
 const editVisible = ref(false);
 let form = reactive({
@@ -128,16 +155,20 @@ let idx: number = -1;
 .handle-input {
     width: 300px;
 }
+
 .table {
     width: 100%;
     font-size: 14px;
 }
+
 .red {
     color: #F56C6C;
 }
+
 .mr10 {
     margin-right: 10px;
 }
+
 .table-td-thumb {
     display: block;
     margin: auto;
@@ -145,4 +176,3 @@ let idx: number = -1;
     height: 40px;
 }
 </style>
-

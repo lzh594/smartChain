@@ -25,7 +25,7 @@ const routes: RouteRecordRaw[] = [
                 path: '/table',
                 name: 'basetable',
                 meta: {
-                    title: '表格',
+                    title: '账号信息',
                     permiss: '2',
                 },
                 component: () => import(/* webpackChunkName: "table" */ '../views/table.vue'),
@@ -43,8 +43,8 @@ const routes: RouteRecordRaw[] = [
                 path: '/form',
                 name: 'baseform',
                 meta: {
-                    title: '表单',
-                    permiss: '5',
+                    title: '账号变更',
+                    permiss: '2',
                 },
                 component: () => import(/* webpackChunkName: "form" */ '../views/form.vue'),
             },
@@ -76,13 +76,13 @@ const routes: RouteRecordRaw[] = [
                 component: () => import(/* webpackChunkName: "permission" */ '../views/permission.vue'),
             },
             {
-                path: '/upload',
-                name: 'upload',
+                path: '/history',
+                name: 'history',
                 meta: {
-                    title: '上传插件',
+                    title: '历史记录',
                     permiss: '6',
                 },
-                component: () => import(/* webpackChunkName: "upload" */ '../views/upload.vue'),
+                component: () => import(/* webpackChunkName: "upload" */ '../views/history.vue'),
             },
             {
                 path: '/icon',
@@ -129,13 +129,13 @@ const routes: RouteRecordRaw[] = [
                 component: () => import(/* webpackChunkName: "export" */ '../views/export.vue'),
             },
             {
-                path: '/import',
-                name: 'import',
+                path: '/apporg',
+                name: 'apporg',
                 meta: {
-                    title: '导入Excel',
+                    title: '数据管理',
                     permiss: '2',
                 },
-                component: () => import(/* webpackChunkName: "import" */ '../views/import.vue'),
+                component: () => import(/* webpackChunkName: "import" */ '../views/apporg.vue'),
             },
         ],
     },
@@ -168,10 +168,7 @@ router.beforeEach((to, from, next) => {
     const permiss = usePermissStore();
     if (!role && to.path !== '/login') {
         next('/login');
-    } else if (to.meta.permiss && !permiss.key.includes(to.meta.permiss)) {
-        // 如果没有权限，则进入403
-        next('/403');
-    } else {
+    }else {
         next();
     }
 });

@@ -10,39 +10,13 @@
             unique-opened
             router
         >
-            <template v-for="{icon, index, permiss, subs, title} in items">
-                <template v-if="subs">
-                    <el-sub-menu :index="index" :key="index" v-permiss="permiss">
-                        <template #title>
-                            <el-icon>
-                                <component :is="icon"></component>
-                            </el-icon>
-                            <span>{{ title }}</span>
-                        </template>
-                        <template v-for="subItem in (subs)">
-                            <el-sub-menu
-                                v-if="subItem.subs"
-                                :index="subItem.index"
-                                :key="subItem.index"
-                                v-permiss="permiss"
-                            >
-                                <template #title>{{ subItem.title }}</template>
-                                <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">
-                                    {{ threeItem.title }}
-                                </el-menu-item>
-                            </el-sub-menu>
-                            <el-menu-item v-else :index="subItem.index" v-permiss="permiss">
-                                {{ subItem.title }}
-                            </el-menu-item>
-                        </template>
-                    </el-sub-menu>
-                </template>
-                <template v-else>
-                    <el-menu-item :index="index" :key="index" v-permiss="permiss">
+            <template v-for="(item, index) in items">
+                <template v-if="identity === '1' && (item.index === '/dashboard' || item.index === '/table' || item.index === '/form' || item.index === '/history') || identity === '0' && (item.index === '/dashboard' || item.index === '/apporg')">
+                    <el-menu-item :index="item.index" :key="item.index" v-permiss="item.permiss">
                         <el-icon>
-                            <component :is="icon"></component>
+                            <component :is="item.icon"></component>
                         </el-icon>
-                        <template #title>{{ title }}</template>
+                        <template #title>{{ item.title }}</template>
                     </el-menu-item>
                 </template>
             </template>
@@ -63,92 +37,28 @@ const items = [
         permiss: '1',
     },
     {
-        icon: 'Calendar',
-        index: '1',
-        title: '表格相关',
+        icon: 'User',
+        index: '/table',
+        title: '账号信息',
         permiss: '2',
-        subs: [
-            {
-                index: '/table',
-                title: '常用表格',
-                permiss: '2',
-            },
-            {
-                index: '/import',
-                title: '导入Excel',
-                permiss: '2',
-            },
-            {
-                index: '/export',
-                title: '导出Excel',
-                permiss: '2',
-            },
-        ],
     },
     {
-        icon: 'DocumentCopy',
-        index: '/tabs',
-        title: 'tab选项卡',
-        permiss: '3',
+        icon: 'Calendar',
+        index: '/history',
+        title: '历史记录',
+        permiss: '6',
     },
     {
         icon: 'Edit',
-        index: '3',
-        title: '表单相关',
-        permiss: '4',
-        subs: [
-            {
-                index: '/form',
-                title: '基本表单',
-                permiss: '5',
-            },
-            {
-                index: '/upload',
-                title: '文件上传',
-                permiss: '6',
-            },
-            {
-                index: '4',
-                title: '三级菜单',
-                permiss: '7',
-                subs: [
-                    {
-                        index: '/editor',
-                        title: '富文本编辑器',
-                        permiss: '8',
-                    },
-                    {
-                        index: '/markdown',
-                        title: 'markdown编辑器',
-                        permiss: '9',
-                    },
-                ],
-            },
-        ],
+        index: '/form',
+        title: '账号管理',
+        permiss: '1',
     },
     {
-        icon: 'Setting',
-        index: '/icon',
-        title: '自定义图标',
-        permiss: '10',
-    },
-    {
-        icon: 'PieChart',
-        index: '/charts',
-        title: 'schart图表',
-        permiss: '11',
-    },
-    {
-        icon: 'Warning',
-        index: '/permission',
-        title: '权限管理',
-        permiss: '13',
-    },
-    {
-        icon: 'CoffeeCup',
-        index: '/donate',
-        title: '支持作者',
-        permiss: '14',
+        icon: 'Goods',
+        index: '/apporg',
+        title: '数据管理',
+        permiss: '2',
     },
 ];
 
@@ -158,6 +68,8 @@ const onRoutes = computed(() => {
 });
 
 const sidebar = useSidebarStore();
+// const identity = computed(() => window.userIdentity || 0); // 从全局变量读取用户身份
+const identity = localStorage.getItem('ms_identity')
 </script>
 
 <style scoped>
