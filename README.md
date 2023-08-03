@@ -1,1 +1,1 @@
-# smartChain
+# SmartChain

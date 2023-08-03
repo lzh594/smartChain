@@ -5,10 +5,10 @@ import Home from '../views/home.vue';
 const routes: RouteRecordRaw[] = [
     {
         path: '/',
-        redirect: '/dashboard',
+        redirect: '/login',
     },
     {
-        path: '/',
+        path: '/home',
         name: 'Home',
         component: Home,
         children: [
@@ -28,7 +28,7 @@ const routes: RouteRecordRaw[] = [
                     title: '账号信息',
                     permiss: '2',
                 },
-                component: () => import(/* webpackChunkName: "table" */ '../views/table.vue'),
+                component: () => import(/* webpackChunkName: "table" */ '../views/query.vue'),
             },
             {
                 path: '/charts',
@@ -43,7 +43,7 @@ const routes: RouteRecordRaw[] = [
                 path: '/form',
                 name: 'baseform',
                 meta: {
-                    title: '账号变更',
+                    title: '账号操作',
                     permiss: '2',
                 },
                 component: () => import(/* webpackChunkName: "form" */ '../views/form.vue'),
@@ -154,6 +154,14 @@ const routes: RouteRecordRaw[] = [
             title: '没有权限',
         },
         component: () => import(/* webpackChunkName: "403" */ '../views/403.vue'),
+    },
+    {
+        path: '/404',
+        name: '404',
+        meta: {
+            title: '知识荒原',
+        },
+        component: () => import(/* webpackChunkName: "403" */ '../views/404.vue'),
     },
 ];
 

@@ -12,7 +12,11 @@
                               @clear="phoneClear"
                               class="handle-input mr20"></el-input>
                     <el-button type="success" :icon="Search" @click="phoneSearch">搜索</el-button>
+                    <span v-if="searchQuery.Phone.length===11" style="margin-left: 20px">
+                        <el-button type="warning" :icon="RefreshLeft" @click="clearHistory">清空历史记录</el-button>
+                    </span>
                 </div>
+
                 <el-select v-model="searchQuery.Superior"
                            placeholder="运营商"
                            clearable
@@ -86,7 +90,7 @@
 
 <script setup lang="ts" name="history">
 import {ref, reactive} from 'vue';
-import {Delete, Edit, Search, Plus} from '@element-plus/icons-vue';
+import {Delete, Search, RefreshLeft} from '@element-plus/icons-vue';
 import {requestData} from "../api";
 
 interface TableItem {
@@ -99,9 +103,6 @@ interface TableItem {
 }
 
 const query = reactive({
-    Phone: '',
-    App: '',
-    Op: '',
     pageIndex: 1,
     pageSize: 10
 });
@@ -117,13 +118,14 @@ const tableDataCache = ref<TableItem[]>([]);
 const pageTotal = ref(0);
 const pageTotalCache = ref(0);
 const request = reactive({
-    url: '/get_history',
+    url: '',
     method: 'get',
     query: {}
 });
 
 // 获取后台数据
 const getData = () => {
+    request.url='/get_history'
     request.query = {"Phone": searchQuery.Phone}
     requestData(request)!.then(res => {
         tableDataCache.value = res.data.list;
@@ -153,7 +155,6 @@ const phoneClear = () => {
 }
 // 筛选操作
 const optionSearch = () => {
-    query.pageIndex = 1;
     tableData.value = tableDataCache.value.filter(item => {
         const superiorMatch = item.Superior.includes(searchQuery.Superior);
         const appMatch = item.App.includes(searchQuery.App);
@@ -162,7 +163,16 @@ const optionSearch = () => {
     });
     pageTotal.value = tableData.value.length
 };
-
+const clearHistory = () => {
+    request.url='/clear_history'
+    request.query = {"Phone": searchQuery.Phone}
+    requestData(request)!.then(res => {
+        tableDataCache.value = res.data.list;
+        pageTotalCache.value = res.data.pageTotal;
+    });
+    tableData.value = tableDataCache.value
+    pageTotal.value = pageTotalCache.value
+}
 // 分页导航
 const handlePageChange = (val: number) => {
     query.pageIndex = val;

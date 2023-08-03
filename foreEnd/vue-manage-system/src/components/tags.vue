@@ -50,7 +50,7 @@ const closeTags = (index: number) => {
 	if (item) {
 		delItem.path === route.fullPath && router.push(item.path);
 	} else {
-		router.push('/');
+		router.push('/404');
 	}
 };
 

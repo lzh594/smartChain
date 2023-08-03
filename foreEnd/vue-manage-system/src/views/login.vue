@@ -98,7 +98,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
             localStorage.setItem('ms_keys', JSON.stringify(keys));
             // window.userIdentity = param.identity === '用户' ? 1 : 0;
             localStorage.setItem('ms_identity', param.identity === '用户' ? '1' : '0');
-            router.push('/');
+            router.push('/dashboard');
         } else {
             ElMessage.error('登录失败');
             return false;

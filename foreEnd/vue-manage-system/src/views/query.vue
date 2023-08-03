@@ -153,7 +153,7 @@ const getData = () => {
         pageTotalCache.value = res.data.pageTotal;
     });
 };
-getData();
+
 const phoneSearch = () => {
     searchQuery.HashID = '';
     searchQuery.Superior = '';
@@ -162,6 +162,7 @@ const phoneSearch = () => {
     tableData.value = tableDataCache.value;
     pageTotal.value = pageTotalCache.value;
 }
+getData();
 // 清除搜索栏中的输入
 const phoneClear = () => {
     searchQuery.Phone = '';

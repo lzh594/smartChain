@@ -31,12 +31,11 @@
                            @clear="searchQuery.Superior=''"
                            class="mr20"
                            style="width: 88px">
-                    <el-option key="1" label="Alibaba" value="Alibaba" align="center"></el-option>
-                    <el-option key="2" label="Mihoyo" value="Mihoyo" align="center"></el-option>
-                    <el-option key="3" label="ByteDance" value="ByteDance" align="center"></el-option>
-                    <el-option key="4" label="Tencent" value="Tencent" align="center"></el-option>
-                    <el-option key="5" label="NetEase" value="NetEase" align="center"></el-option>
-                    <el-option key="6" label="buaa" value="buaa" align="center"></el-option>
+                    <el-option key="1" label="阿里巴巴" value="Alibaba" align="center"></el-option>
+                    <el-option key="2" label="米哈游" value="Mihoyo" align="center"></el-option>
+                    <el-option key="3" label="字节跳动" value="ByteDance" align="center"></el-option>
+                    <el-option key="4" label="腾讯" value="Tencent" align="center"></el-option>
+                    <el-option key="5" label="网易" value="NetEase" align="center"></el-option>
                 </el-select>
                 <el-select v-model="searchQuery.App"
                            placeholder="应用"
@@ -44,22 +43,22 @@
                            @clear="searchQuery.App=''"
                            class="mr20"
                            style="width: 88px">
-                    <el-option-group label="Tencent">
-                        <el-option key="1" label="weixin" value="weixin" align="center"></el-option>
+                    <el-option-group label="腾讯">
+                        <el-option key="1" label="微信" value="weixin" align="center"></el-option>
                         <el-option key="2" label="QQ" value="QQ" align="center"></el-option>
                     </el-option-group>
-                    <el-option-group label="Alibaba">
-                        <el-option key="3" label="taobao" value="taobao" align="center"></el-option>
-                        <el-option key="4" label="Alipay" value="Alipay" align="center"></el-option>
+                    <el-option-group label="阿里巴巴">
+                        <el-option key="3" label="淘宝" value="taobao" align="center"></el-option>
+                        <el-option key="4" label="支付宝" value="Alipay" align="center"></el-option>
                     </el-option-group>
-                    <el-option-group label="NetEase">
-                        <el-option key="5" label="Musics" value="Musics" align="center"></el-option>
+                    <el-option-group label="网易">
+                        <el-option key="5" label="网易云音乐" value="Musics" align="center"></el-option>
                     </el-option-group>
-                    <el-option-group label="Mihoyo">
-                        <el-option key="6" label="Genshin" value="Genshin" align="center"></el-option>
+                    <el-option-group label="米哈游">
+                        <el-option key="6" label="原神" value="Genshin" align="center"></el-option>
                     </el-option-group>
-                    <el-option-group label="ByteDance">
-                        <el-option key="7" label="Tiktok" value="Tiktok" align="center"></el-option>
+                    <el-option-group label="字节跳动">
+                        <el-option key="7" label="抖音" value="Tiktok" align="center"></el-option>
                     </el-option-group>
                 </el-select>
                 <el-select v-model="searchQuery.Op"
@@ -83,7 +82,7 @@
                 <el-button type="primary" :icon="Search" @click="optionSearch">筛选</el-button>
                 <el-button type="danger" :icon="Delete" @click="phoneSearch">清除</el-button>
             </div>
-
+            <!--:default-sort="{ prop: 'TimeStamp', order: 'descending' }"-->
             <el-table :data="tableData"
                       border
                       stripe
@@ -92,11 +91,11 @@
                       header-cell-class-name="table-header">
                 <el-table-column prop="id" label="序号" width="60" align="center"></el-table-column>
                 <el-table-column prop="HashID" label="哈希索引" width="250" align="center"></el-table-column>
-                <el-table-column prop="Phone" label="账号" align="center"></el-table-column>
+                <el-table-column prop="Phone" label="账号" width="150" align="center"></el-table-column>
                 <el-table-column prop="Superior" label="运营商" align="center"></el-table-column>
                 <el-table-column prop="App" label="应用" align="center"></el-table-column>
                 <el-table-column prop="Op" label="操作" align="center"></el-table-column>
-                <el-table-column label="状态" align="center">
+                <el-table-column prop="State" label="状态" align="center">
                     <template #default="scope">
                         <el-tag
                             v-if="scope.row.State === 'success'"
@@ -124,14 +123,14 @@
                     </template>
                 </el-table-column>
                 <el-table-column prop="TimeStamp" label="时间戳" width=250 align="center"></el-table-column>
-                <el-table-column label="操作" width="220" align="center">
+                <el-table-column prop="Edit" label="编辑" width="200" align="center">
                     <template #default="scope">
                         <el-button type="danger"
                                    :icon="Edit"
                                    size="small"
                                    plain
                                    round
-                                   @click.="handleEdit(scope.$index)"
+                                   @click.="handleEdit(scope.raw.idx)"
                         >
                             反馈处理
                         </el-button>
@@ -151,7 +150,7 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" v-model="editVisible" width="30%" center @closed="getData">
+        <el-dialog title="编辑" v-model="editVisible" width="30%" center @close="formState=''">
             <template #header="{ close, titleId, titleClass }">
                 <div class="my-header">
                     <h1 :id="titleId" :class="titleClass">请更改操作状态</h1>
@@ -229,7 +228,8 @@ const getData = () => {
         pageTotalCache.value = res.data.pageTotal;
     });
 };
-getData()
+// getData()
+
 
 // 清除筛选项目
 const optionClear = () => {
@@ -246,11 +246,11 @@ const phoneSearch = () => {
     getData()
     tableData.value = tableDataCache.value
     pageTotal.value = pageTotalCache.value
+    localStorage.setItem("total", pageTotalCache.value.toString())
 }
-
+phoneSearch()
 // 筛选操作
 const optionSearch = () => {
-    pageQuery.pageIndex = 1;
     tableData.value = tableDataCache.value.filter(item => {
         const phoneMatch = item.Phone.includes(searchQuery.Phone);
         const hashIDMatch = item.HashID.includes(searchQuery.HashID);
@@ -313,6 +313,7 @@ const saveEdit = () => {
     submit.State = formState.value;
     editRequest()
     editVisible.value = false;
+    formState.value=""
     ElMessage.success(`操作成功`);
 };
 </script>

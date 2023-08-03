@@ -1,28 +1,28 @@
 <template>
     <div>
         <el-row :gutter="20">
-            <el-col :span="8">
-                <el-card shadow="hover" class="mgb20" style="height: 300px">
+            <el-col :span="10">
+                <el-card shadow="hover" class="mgb20" style="height: 400px">
                     <div class="user-info">
-                        <div style="margin-left: 60px">
+                        <div class="user-info-icon">
                             <el-avatar v-if="identity==='1'" class="user-avator" :size="120" :src="userImg"/>
                             <el-avatar v-else class="user-avator" :size="120" :src="orgImg"/>
                         </div>
                         <div class="user-info-cont">
-                            <div class="user-info-name">{{ username }}</div>
-                            <div>{{ role }}</div>
+                            <div class="user-info-name" style="margin-bottom: 20px">{{ username }}</div>
+                            <div style="font-size: 32px">{{ role }}</div>
                         </div>
                     </div>
                     <div class="user-info-list">
-                        日期：
-                        <span>{{ currentTime }}</span>
+                        <span style="margin-right: 50px">日期：{{ currentTime }}</span>
+                        <span style="margin-left: 50px">ip属地：{{ currentLocation }}</span>
                     </div>
                     <div class="user-welcome">
                         欢迎使用智链通！
                     </div>
                 </el-card>
                 <el-row :gutter="20" class="mgb20">
-                    <el-col :span="12">
+                    <el-col :span="12" style="height: 200px">
                         <el-card shadow="hover">
                             <div class="grid-content grid-con-1">
                                 <el-icon class="grid-con-icon">
@@ -39,8 +39,9 @@
                         <el-card shadow="hover">
                             <div class="grid-content grid-con-2">
                                 <el-icon class="grid-con-icon">
-                                    <ChatDotRound/>
+                                    <Message/>
                                 </el-icon>
+
                                 <div class="grid-cont-right">
                                     <div class="grid-num">21</div>
                                     <div>系统消息</div>
@@ -52,7 +53,7 @@
                         <el-card shadow="hover">
                             <div class="grid-content grid-con-3">
                                 <el-icon class="grid-con-icon">
-                                    <Goods/>
+                                    <Monitor/>
                                 </el-icon>
                                 <div class="grid-cont-right">
                                     <div class="grid-num">50</div>
@@ -65,10 +66,10 @@
                         <el-card shadow="hover">
                             <div class="grid-content grid-con-4">
                                 <el-icon class="grid-con-icon">
-                                    <Calendar/>
+                                    <Coin/>
                                 </el-icon>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">25</div>
+                                    <div class="grid-num">{{ total }}</div>
                                     <div>已绑定账号</div>
                                 </div>
                             </div>
@@ -76,8 +77,8 @@
                     </el-col>
                 </el-row>
             </el-col>
-            <el-col :span="16">
-                <el-card shadow="hover" style="height: 600px">
+            <el-col :span="14">
+                <el-card shadow="hover" style="height: 760px">
                     <template #header>
                         <div class="function">
                             <span>功能介绍</span>
@@ -112,15 +113,16 @@
 
 <script setup lang="ts" name="dashboard">
 import {ref, onMounted} from 'vue';
-import {Calendar, ChatDotRound, Goods} from "@element-plus/icons-vue";
+import {Coin, Message, Monitor} from "@element-plus/icons-vue";
 import userImg from "../assets/img/user.jpg";
 import orgImg from "../assets/img/org.jpg";
+import axios from "axios";
 
 const identity = localStorage.getItem('ms_identity');
 const username = localStorage.getItem('ms_username');
 const role: string = identity === '0' ? '运营商' : '普通用户';
 
-
+const total = localStorage.getItem('total')
 const currentTime = ref('');
 const currentLocation = ref('');
 
@@ -133,9 +135,14 @@ onMounted(async () => {
     currentTime.value = `${year}-${month}-${day}`;
 
     // 获取当前地理位置
-    const response = await fetch('https://api.map.baidu.com/location/ip?ak=你的API密钥&coor=bd09ll');
-    const data = await response.json();
-    currentLocation.value = `${data.content.address_detail.province}${data.content.address_detail.city}`;
+    // 支持async/await用法
+    const response = await axios.get('https://restapi.amap.com/v3/ip', {
+        params: {
+            output: "json",
+            key: "1481cee1325f2cd0eab19ba643d87ba8"
+        }
+    });
+    currentLocation.value = `${response.data.province}${response.data.city}`;
 });
 
 </script>
@@ -145,15 +152,17 @@ onMounted(async () => {
 .user-info {
     display: flex;
     align-items: center;
-    padding-bottom: 20px;
     border-bottom: 2px solid #ccc;
     margin-bottom: 20px;
 }
 
+.user-info-icon {
+    padding: 20px;
+}
+
 .user-info-cont {
-    padding-left: 20px;
     flex: 1;
-    font-size: 20px;
+    font-size: 34px;
     color: #999;
     font-weight: bold;
     text-align: center;
@@ -180,13 +189,10 @@ onMounted(async () => {
     text-align: center;
 }
 
-.user-info-list span {
-    margin-left: 70px;
-}
 
 .user-welcome {
-    margin-top: 20px;
-    font-size: 30px;
+    margin-top: 50px;
+    font-size: 40px;
     font-weight: bold;
     color: black;
     text-align: center;

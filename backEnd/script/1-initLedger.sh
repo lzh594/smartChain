@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 进入test-network
-cd /Users/lzh/Documents/workSpace/vscode/go/fabric-2.4.9/fabric-samples/test-network
+cd ./../../blockChain/fabric-samples/test-network
 
 # 部署链码-go
 ./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go

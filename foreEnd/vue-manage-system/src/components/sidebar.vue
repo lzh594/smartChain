@@ -85,14 +85,20 @@ const identity = localStorage.getItem('ms_identity')
     top: 70px;
     bottom: 0;
     overflow-y: scroll;
+    font-size: 20px;
 }
 
 .sidebar::-webkit-scrollbar {
     width: 0;
 }
-
+li {
+    font-size: large;
+    font-weight: bolder;
+    text-align: center;
+}
 .sidebar-el-menu:not(.el-menu--collapse) {
     width: 250px;
+    font-size: 30px;
 }
 
 .sidebar > ul {
