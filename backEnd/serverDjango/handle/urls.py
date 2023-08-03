@@ -9,4 +9,5 @@ urlpatterns = [
     path("query/", views.query, name="query"),
     path("get_history/", views.get_history, name="get_history"),
     path("clear_history/", views.clear_history, name="clear_history"),
+    path("change/", views.change, name="change")
 ]

@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="374ce9f2-1409-4207-a149-5fd2c335e694" name="更改" comment="first table change" />
+    <list default="true" id="374ce9f2-1409-4207-a149-5fd2c335e694" name="更改" comment="first table change">
+      <change beforePath="$PROJECT_DIR$/../../backEnd/serverDjango/handle/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../backEnd/serverDjango/handle/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backEnd/serverDjango/handle/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../backEnd/serverDjango/handle/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/apporg.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/apporg.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,7 +66,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "Errors",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "ts.external.directory.path": "/Users/lzh/Documents/workSpace/github/smartChain/foreEnd/vue-manage-system/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -100,7 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1690945338427</updated>
       <workItem from="1690945339528" duration="4730000" />
-      <workItem from="1690956935744" duration="30490000" />
+      <workItem from="1690956935744" duration="44384000" />
     </task>
     <task id="LOCAL-00001" summary="first merge vue">
       <option name="closed" value="true" />
@@ -158,11 +163,45 @@
       <option name="project" value="LOCAL" />
       <updated>1691047877454</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="first table change">
+      <option name="closed" value="true" />
+      <created>1691054634147</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1691054634147</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create README.md" />

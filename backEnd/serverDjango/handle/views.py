@@ -14,23 +14,23 @@ def index(request):
 
 
 # 检查是否需要覆写
-def check(data, t):
+def check(data, t, state="pending"):
     # 计算hash值，得到id
-    cmd = " ".join([data["Phone"], data["Superior"], data["App"], data["Op"], "pending", t])
+    cmd = " ".join([data["Phone"], data["Superior"], data["App"], data["Op"], state, t])
     hashid = command_SSH(x_sh['getHash'] + f' \"{cmd}\"')
     # 查询是否存在旧数据
     d = UsrData.objects.filter(Phone=data["Phone"], App=data["App"])
     if len(d):
-        if d[0].Op == data["Op"]:
+        if d[0].Op == data["Op"] and state == "pending":
             return 0
         cmd = " " + d[0].HashID
         command_SSH(x_sh['delete'] + cmd)
         # 创建新资产
-        cmd = " " + " ".join([hashid, data['Phone'], data["Superior"], data["App"], data["Op"], "pending", f"\"{t}\""])
+        cmd = " " + " ".join([hashid, data['Phone'], data["Superior"], data["App"], data["Op"], state, f"\"{t}\""])
         command_SSH(x_sh['create'] + cmd)
         return 1
     # 创建新资产
-    cmd = " " + " ".join([hashid, data['Phone'], data["Superior"], data["App"], data["Op"], "pending", f"\"{t}\""])
+    cmd = " " + " ".join([hashid, data['Phone'], data["Superior"], data["App"], data["Op"], state, f"\"{t}\""])
     command_SSH(x_sh['create'] + cmd)
     return 2
 
@@ -49,6 +49,7 @@ def update():
                                State=d['State'], TimeStamp=d["TimeStamp"])
 
 
+@require_http_methods(['GET', 'POST'])
 # 提交数据到fabric
 def create(request):
     data = request.GET if request.method == "GET" else request.POST
@@ -77,6 +78,15 @@ def create(request):
     update()
     return get_all(request)
     # return JsonResponse({"result": {"str": s, "value": value}}, json_dumps_params={'ensure_ascii': False})
+
+
+@require_http_methods(['GET', 'POST'])
+def change(request):
+    data = request.GET if request.method == "GET" else request.POST
+    t = time.asctime().replace("  ", " ").replace(" ", "-")
+    _ = check(data, t, data["State"])
+    update()
+    return get_all(request)
 
 
 # 查询特定手机号数据
