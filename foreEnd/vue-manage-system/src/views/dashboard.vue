@@ -4,7 +4,7 @@
             <el-col :span="8">
                 <el-card shadow="hover" class="mgb20" style="height: 252px">
                     <div class="user-info">
-                        <el-avatar v-if="identity==='1'" class="user-avator" :size="30" :src="userImg"/>
+                        <el-avatar v-if="identity==='1'" class="user-avator" :size="120" :src="userImg"/>
                         <el-avatar v-else class="user-avator" :size="120" :src="orgImg"/>
                         <div class="user-info-cont">
                             <div class="user-info-name">{{ username }}</div>
@@ -12,13 +12,12 @@
                         </div>
                     </div>
                     <div class="user-info-list">
-                        上次登录时间：
-                        <span>2023-08-02</span>
+                      日期：
+                      <span>{{ currentTime }}</span>
                     </div>
-                    <div class="user-info-list">
-                        上次登录地点：
-                        <span>北京</span>
-                    </div>
+                    <div class="user-welcome">
+                      欢迎使用智链通！
+                   </div>
                 </el-card>
                 <el-row :gutter="20" class="mgb20">
                     <el-col :span="12">
@@ -110,7 +109,7 @@
 </template>
 
 <script setup lang="ts" name="dashboard">
-import imgurl from './../assets/img/user.jpg';
+import { ref, onMounted } from 'vue';
 import {Calendar, ChatDotRound, Goods} from "@element-plus/icons-vue";
 import userImg from "../assets/img/user.jpg";
 import orgImg from "../assets/img/org.jpg";
@@ -119,6 +118,23 @@ const identity = localStorage.getItem('ms_identity');
 const username = localStorage.getItem('ms_username');
 const role: string = identity === '0' ? '运营商' : '普通用户';
 
+
+const currentTime = ref('');
+const currentLocation = ref('');
+
+onMounted(async () => {
+    // 获取当前时间
+    const date = new Date();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 月份从0开始，所以需要+1
+    const day = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear();
+    currentTime.value = `${year}-${month}-${day}`;
+
+    // 获取当前地理位置
+    const response = await fetch('https://api.map.baidu.com/location/ip?ak=你的API密钥&coor=bd09ll');
+    const data = await response.json();
+    currentLocation.value = `${data.content.address_detail.province}${data.content.address_detail.city}`;
+});
 
 </script>
 
@@ -135,25 +151,45 @@ const role: string = identity === '0' ? '运营商' : '普通用户';
 .user-info-cont {
     padding-left: 50px;
     flex: 1;
-    font-size: 14px;
+    font-size: 20px;
     color: #999;
+    font-weight: bold;
+    text-align: center;
 }
 
 .user-info-cont div:first-child {
     font-size: 30px;
     color: #222;
+    font-weight: bold;
+    text-align: center;
+}
+
+.user-info-cont div:last-child {
+    font-size: 25px;
+    color: #999;
+    text-align: center;
 }
 
 .user-info-list {
-    font-size: 14px;
+    font-size: 18px;
+    font-weight: bold;
     color: #999;
     line-height: 25px;
+    text-align: center;
 }
 
 .user-info-list span {
     margin-left: 70px;
 }
+.user-welcome{
+  font-size: 30px;
+  font-weight: bold;
+  color: #324160;
+  line-height: 50px;
+  text-align: center;
+  font-family: "楷体", serif;
 
+}
 .mgb20 {
     margin-bottom: 20px;
 }
