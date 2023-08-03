@@ -86,7 +86,7 @@
 
             <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
                 <el-table-column prop="id" label="序号" width="55" align="center"></el-table-column>
-                <el-table-column prop="HashID" label="哈希索引"  width="220" align="center"></el-table-column>
+                <el-table-column prop="HashID" label="哈希索引" width="220" align="center"></el-table-column>
                 <el-table-column prop="Phone" label="账号" align="center"></el-table-column>
                 <el-table-column prop="Superior" label="运营商" align="center"></el-table-column>
                 <el-table-column prop="App" label="应用" align="center"></el-table-column>
@@ -209,34 +209,35 @@ const getData = () => {
     });
 };
 getData()
-// 搜索过程：清除筛选项目+获取后台数据
-const phoneSearch = () => {
-    searchQuery.Superior = '';
-    searchQuery.App = '';
-    searchQuery.Op = '';
-    getData()
-    tableData.value = tableDataCache.value
-    pageTotal.value = pageTotalCache.value
-}
-// 清除搜索栏中的输入
-const phoneClear = () => {
+
+// 清除筛选项目
+const optionClear = () => {
+    searchQuery.HashID = '';
     searchQuery.Phone = '';
     searchQuery.Superior = '';
     searchQuery.App = '';
     searchQuery.Op = '';
-    tableDataCache.value = []
-    tableData.value = []
-    pageTotal.value = 0
-    pageTotalCache.value = 0
+    searchQuery.State = '';
 }
+// 搜索过程：清除筛选项目+获取后台数据
+const phoneSearch = () => {
+    optionClear()
+    getData()
+    tableData.value = tableDataCache.value
+    pageTotal.value = pageTotalCache.value
+}
+
 // 筛选操作
 const optionSearch = () => {
     pageQuery.pageIndex = 1;
     tableData.value = tableDataCache.value.filter(item => {
+        const phoneMatch = item.Phone.includes(searchQuery.Phone);
+        const hashIDMatch = item.HashID.includes(searchQuery.HashID);
         const superiorMatch = item.Superior.includes(searchQuery.Superior);
         const appMatch = item.App.includes(searchQuery.App);
         const opMatch = item.Op.includes(searchQuery.Op);
-        return superiorMatch && appMatch && opMatch;
+        const stateMatch = item.State.includes(searchQuery.State);
+        return phoneMatch && hashIDMatch && superiorMatch && appMatch && opMatch && stateMatch;
     });
     pageTotal.value = tableData.value.length
 };
