@@ -7,30 +7,31 @@
                     <el-divider content-position="center" font-size="30px">请输入用户名和密码</el-divider>
                     <el-input v-model="param.username" placeholder="username" class="input-field">
                         <template #prepend>
-                            <el-button icon="User" size="12px"></el-button>
+                            <el-button icon="User" disabled></el-button>
                         </template>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password" class="form-item">
                     <el-input
-                        type="password"
+                        type=text
+                        show-password
                         placeholder="password"
                         v-model="param.password"
                         @keyup.enter="submitForm(login)"
                         class="input-field"
                     >
                         <template #prepend>
-                            <el-button icon="Lock" size="16px"></el-button>
+                            <el-button icon="Lock" disabled></el-button>
                         </template>
                     </el-input>
                 </el-form-item>
                 <el-divider content-position="center">请选择身份</el-divider>
                 <el-form-item class="form-item">
                     <el-radio-group v-model="param.identity" size="big" class="identity-group" align="center">
-                        <el-radio-button label="用户" border size="large" align="center">用户
-                        </el-radio-button>
-                        <el-divider direction="vertical"></el-divider>
-                        <el-radio-button label="运营商" border size="large" >运营商</el-radio-button>
+                        <el-radio label="用户" border size="large" align="center">用户
+                        </el-radio>
+<!--                        <el-divider direction="vertical"></el-divider>-->
+                        <el-radio label="运营商" border size="large" >运营商</el-radio>
                     </el-radio-group>
                     <!--      <el-row>-->
                     <!--          <el-button round>圆角按钮</el-button>-->
@@ -44,8 +45,8 @@
                 <div class="login-btn">
                     <el-button round type="primary" @click="submitForm(login)" class="login-button">登 录</el-button>
                 </div>
-                <p class="login-tips">Tips : 请正确填写用户名和密码，并选择你的身份。</p>
             </el-form>
+            <p class="login-tips">Tips : 请正确填写用户名和密码，并选择你的身份。</p>
         </div>
     </div>
 </template>
@@ -57,7 +58,6 @@ import {usePermissStore} from '../store/permiss';
 import {useRouter} from 'vue-router';
 import {ElMessage} from 'element-plus';
 import type {FormInstance, FormRules} from 'element-plus';
-import {Lock, User} from '@element-plus/icons-vue';
 import user from "./user.vue";
 
 
@@ -116,7 +116,9 @@ tags.clearTags();
 }
 
 .input-field {
-    height: 50px; /* adjust as needed */
+    margin-left: 40px;
+    height: 60px; /* adjust as needed */
+    width: 400px;
 }
 
 .identity-group /deep/ {
@@ -124,34 +126,39 @@ tags.clearTags();
     font-size: 25px;
     font-weight: bold;
     justify-content: center;
-    margin-left: 165px;
+    margin-left: 140px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .login-button {
-    font-size: 22px; /* adjust as needed */
+    font-size: 24px; /* adjust as needed */
 }
 
 .login-wrap {
-    position: relative;
+    position: absolute;
     width: 100%;
     height: 100%;
     background-image: url(../assets/img/login-bg.jpg);
+    background-position: center center;
     background-size: 100%;
 }
 
 .ms-title {
     width: 100%;
-    line-height: 50px;
+    line-height: 80px;
     text-align: center;
-    font-size: 30px;
-    color: midnightblue;
-    border-bottom: 1px solid #18518d;
+    font-size: 36px;
+    font-weight: bold;
+    color:dodgerblue;
+    border-bottom: 2px solid grey;
 }
 
 .ms-login {
-    position: absolute;
+    position: relative;
+    text-align: center;
     left: 43%;
-    top: 45%;
+    top: 40%;
     width: 600px;
     margin: -190px 0 0 -175px;
     border-radius: 5px;
@@ -169,14 +176,15 @@ tags.clearTags();
 }
 
 .login-btn button {
-    width: 100%;
-    height: 36px;
+    width: 50%;
+    height: 40px;
+    margin-top: 10px;
     margin-bottom: 20px;
 }
 
 .login-tips {
-    font-size: 15px;
-    line-height: 30px;
+    font-size: 18px;
+    margin-bottom: 20px;
     color: #000;
 }
 

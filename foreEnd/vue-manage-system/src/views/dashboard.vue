@@ -2,22 +2,24 @@
     <div>
         <el-row :gutter="20">
             <el-col :span="8">
-                <el-card shadow="hover" class="mgb20" style="height: 252px">
+                <el-card shadow="hover" class="mgb20" style="height: 300px">
                     <div class="user-info">
-                        <el-avatar v-if="identity==='1'" class="user-avator" :size="120" :src="userImg"/>
-                        <el-avatar v-else class="user-avator" :size="120" :src="orgImg"/>
+                        <div style="margin-left: 60px">
+                            <el-avatar v-if="identity==='1'" class="user-avator" :size="120" :src="userImg"/>
+                            <el-avatar v-else class="user-avator" :size="120" :src="orgImg"/>
+                        </div>
                         <div class="user-info-cont">
                             <div class="user-info-name">{{ username }}</div>
                             <div>{{ role }}</div>
                         </div>
                     </div>
                     <div class="user-info-list">
-                      日期：
-                      <span>{{ currentTime }}</span>
+                        日期：
+                        <span>{{ currentTime }}</span>
                     </div>
                     <div class="user-welcome">
-                      欢迎使用智链通！
-                   </div>
+                        欢迎使用智链通！
+                    </div>
                 </el-card>
                 <el-row :gutter="20" class="mgb20">
                     <el-col :span="12">
@@ -109,7 +111,7 @@
 </template>
 
 <script setup lang="ts" name="dashboard">
-import { ref, onMounted } from 'vue';
+import {ref, onMounted} from 'vue';
 import {Calendar, ChatDotRound, Goods} from "@element-plus/icons-vue";
 import userImg from "../assets/img/user.jpg";
 import orgImg from "../assets/img/org.jpg";
@@ -149,7 +151,7 @@ onMounted(async () => {
 }
 
 .user-info-cont {
-    padding-left: 50px;
+    padding-left: 20px;
     flex: 1;
     font-size: 20px;
     color: #999;
@@ -181,15 +183,17 @@ onMounted(async () => {
 .user-info-list span {
     margin-left: 70px;
 }
-.user-welcome{
-  font-size: 30px;
-  font-weight: bold;
-  color: #324160;
-  line-height: 50px;
-  text-align: center;
-  font-family: "楷体", serif;
+
+.user-welcome {
+    margin-top: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    font-family: "楷体", serif;
 
 }
+
 .mgb20 {
     margin-bottom: 20px;
 }

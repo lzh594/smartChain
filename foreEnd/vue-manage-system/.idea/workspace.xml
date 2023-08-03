@@ -4,29 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="374ce9f2-1409-4207-a149-5fd2c335e694" name="更改" comment="first table change">
+    <list default="true" id="374ce9f2-1409-4207-a149-5fd2c335e694" name="更改" comment="first login/dashboard change">
+      <change beforePath="$PROJECT_DIR$/../../backEnd/serverDjango/handle/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../backEnd/serverDjango/handle/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../backEnd/serverDjango/handle/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../backEnd/serverDjango/handle/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/_metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.vite/deps/_metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/chunk-AHJIIJDU.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/chunk-AHJIIJDU.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/chunk-HVY2S3ZD.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/chunk-HVY2S3ZD.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/dist-4Z2HW7VT.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/dist-4Z2HW7VT.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/dist-6DJSXTZY.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/dist-6DJSXTZY.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/dist-6GCBQMQF.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/dist-6GCBQMQF.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/dist-O7GITS5M.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/dist-O7GITS5M.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/dist-SGZSIUCW.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/dist-SGZSIUCW.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/element-plus_es_components_table_style_css.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.vite/deps/element-plus_es_components_table_style_css.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.vite/deps/md-editor-v3.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.vite/deps/md-editor-v3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/apporg.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/apporg.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/dashboard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/form.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/login.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -124,7 +109,7 @@
       <option name="presentableId" value="Default" />
       <updated>1690945338427</updated>
       <workItem from="1690945339528" duration="4730000" />
-      <workItem from="1690956935744" duration="45980000" />
+      <workItem from="1690956935744" duration="55730000" />
     </task>
     <task id="LOCAL-00001" summary="first merge vue">
       <option name="closed" value="true" />
@@ -206,7 +191,23 @@
       <option name="project" value="LOCAL" />
       <updated>1691068521093</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="first login/dashboard change">
+      <option name="closed" value="true" />
+      <created>1691069835133</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1691069835133</updated>
+    </task>
+    <task id="LOCAL-00012" summary="first login/dashboard change">
+      <option name="closed" value="true" />
+      <created>1691069878310</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1691069878310</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +243,7 @@
     <MESSAGE value="Create README.md" />
     <MESSAGE value="first merge vue" />
     <MESSAGE value="first table change" />
-    <option name="LAST_COMMIT_MESSAGE" value="first table change" />
+    <MESSAGE value="first login/dashboard change" />
+    <option name="LAST_COMMIT_MESSAGE" value="first login/dashboard change" />
   </component>
 </project>

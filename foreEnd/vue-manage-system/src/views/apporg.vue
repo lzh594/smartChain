@@ -293,7 +293,7 @@ const handleEdit = (index: number) => {
 // 发送编辑请求
 const editRequest = () => {
     optionClear()
-    request.url = "/change"
+    request.url = "/edit"
     request.query = submit
     requestData(request)!.then(res => {
         tableDataCache.value = res.data.list;

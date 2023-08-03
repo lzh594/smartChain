@@ -74,18 +74,35 @@ def create(request):
         value = False
     else:
         s = "Error"
-    # 更新数据库
-    update()
     return get_all(request)
     # return JsonResponse({"result": {"str": s, "value": value}}, json_dumps_params={'ensure_ascii': False})
 
 
+# 运营商编辑操作
+@require_http_methods(['GET', 'POST'])
+def edit(request):
+    data = request.GET if request.method == "GET" else request.POST
+    t = time.asctime().replace("  ", " ").replace(" ", "-")
+    _ = check(data, t, data["State"])
+    return get_all(request)
+
+
+# 换绑请求
 @require_http_methods(['GET', 'POST'])
 def change(request):
     data = request.GET if request.method == "GET" else request.POST
     t = time.asctime().replace("  ", " ").replace(" ", "-")
-    _ = check(data, t, data["State"])
-    update()
+    d = UsrData.objects.filter(Phone=data["OldPhone"], App=data["App"])
+    if len(d):
+        cmd = " " + d[0].HashID
+        command_SSH(x_sh['delete'] + cmd)
+        # 计算hash值，得到id
+        cmd = " ".join([data["Phone"], data["Superior"], data["App"], "change", "pending", t])
+        hashid = command_SSH(x_sh['getHash'] + f' \"{cmd}\"')        # 创建新资产
+        cmd = " " + " ".join([hashid, data['Phone'], data["Superior"], data["App"], "change", "pending", f"\"{t}\""])
+        command_SSH(x_sh['create'] + cmd)
+        _ = History.objects.create(Phone=data['Phone'], Superior=data['Superior'], App=data['App'], Op="change",
+                                   TimeStamp=t)
     return get_all(request)
 
 

@@ -46,10 +46,10 @@ a {
 }
 
 .container {
-    padding: 30px;
+    padding: 60px;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
 }
 
 .crumbs {
@@ -96,6 +96,8 @@ a {
 
 .form-box {
     width: 600px;
+    margin-top: 60px;;
+    margin-left: 200px;
 }
 
 .form-box .line {
