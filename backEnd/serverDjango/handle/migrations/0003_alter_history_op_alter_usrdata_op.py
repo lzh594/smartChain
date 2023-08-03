@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('handle', '0002_rename_所选app_history_app_rename_操作_history_op_and_more'),
     ]
