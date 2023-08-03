@@ -20,4 +20,3 @@ class History(models.Model):
     App = models.CharField(max_length=10, verbose_name="所选app", name="App")
     Op = models.CharField(max_length=10, verbose_name="操作", name="Op")
     TimeStamp = models.CharField(max_length=25, verbose_name="时间戳", name="TimeStamp")
-
